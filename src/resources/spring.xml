@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd"
+       xmlns:context="http://www.springframework.org/schema/context">
+    <context:annotation-config />
+        <!--  <bean id = "parenttriangle" class="springproject.Triangle"  autowire="byName">
+              <property name="pointA" ref="pointA" />
+          </bean>
+
+          <bean id = "triangle1" class="springproject.Triangle"  parent="parenttriangle">
+              <property name="pointB" ref="pointB" />
+              <property name="pointC" ref="pointC" />
+          </bean>
+
+           <bean id = "triangle2" class="springproject.Triangle"  parent="parenttriangle">
+               <property name="pointB" ref="pointB" />
+           </bean>-->
+  <!--  <bean id = "parenttriangle" class="springproject.Triangle" abstract="true">
+        <property name="points">
+            <list>
+                <ref bean="pointA"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id = "triangle1" class="springproject.Triangle"  parent="parenttriangle">
+        <property name="points" >
+            <list merge="true">
+                <ref bean="pointB" />
+                <ref bean="pointC" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id = "triangle2" class="springproject.Triangle"  parent="parenttriangle">
+        <property name="points" >
+            <list merge="true">
+            <ref bean ="pointB" />
+            </list>
+        </property>
+    </bean>-->
+
+
+    <bean id = "triangle" class="springproject.Triangle" name="triangle-name" autowire="byName" init-method="myInit" destroy-method="myCleanUp" >
+            <!--  <property name="pointA" ref="pointA" />
+               <property name="pointB" ref="pointB" />
+               <property name="pointC" ref="pointC" /> -->
+               <!--<property name="type" value="equlatral" /> -->
+               <!--  <constructor-arg index="0" value= "equlateral" />
+              <constructor-arg index="1" type = "int" value="20 " />-->
+             <!-- <property name="pointA" ref="zeroPoint" />
+              <property name="pointB">
+                  <bean class = "springproject.Point">
+                      <property name="x" value="-20"/>
+                      <property name="y" value="0"/>
+                  </bean>
+              </property>
+              <property name="pointC">
+                  <bean  class="springproject.Point">
+                      <property name="x" value="20"/>
+                      <property name="y" value="0"/>
+                  </bean>
+              </property>-->
+             <!-- <property name="points">
+                  <list>
+                      <ref bean="pointA"/>
+                      <ref bean="pointB"/>
+                      <ref bean="pointC"/>
+                  </list>
+              </property>-->
+    <!--<bean id = "zeroPoint" class="springproject.Point">
+        <property name = "x" value = "0"/>
+        <property name="y" value="0"/>
+    </bean>
+    <bean id="point2" class = "springproject.Point">
+        <property name="x" value="-20"/>
+        <property name="y" value="0"/>
+    </bean>
+    <bean id="point3" class="springproject.Point">
+        <property name="x" value="20"/>
+        <property name="y" value="0"/>-->
+    </bean>
+  <!--  <bean id="circle" class="springproject.Circle">
+        <property name="center" ref="pointA"/>
+    </bean>-->
+    <bean id = "PointA" class="springproject.Point">
+        <qualifier value="circleRelated"/>
+        <property name = "x" value = "${pointA.pointX}"/>
+        <property name="y" value="${pointA.pointY}"/>
+    </bean>
+    <bean id="pointB" class = "springproject.Point">
+        <property name="x" value="-20"/>
+        <property name="y" value="0"/>
+    </bean>
+    <bean id="pointC" class="springproject.Point">
+        <property name="x" value="20"/>
+        <property name="y" value="0"/>
+    </bean>
+    <bean class="springproject.DisplayNameBeanPostProcessor"/>
+    <bean class="springproject.MyBeanFactoryPP"/>
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="pointsconfig.properties"/>
+    </bean>
+   <!-- <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"></bean>
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"></bean>-->
+
+    <!--<alias name="triangle" alias="triangle-alias"/>-->
+    <context:component-scan base-package="springproject"/>
+    <context:component-scan base-package="ConnectJDBC"/>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/circle"/>
+        <property name="username" value="root"/>
+        <property name="password" value="shruti@123"/>
+      <!--  <property name="initialSize" value="2"/>
+        <property name="maxActive" value="5"/>-->
+
+    </bean>
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>mymessages</value>
+            </list>
+        </property>
+    </bean>
+
+    </beans>
+    
